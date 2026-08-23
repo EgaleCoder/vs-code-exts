@@ -1,0 +1,214 @@
+{
+  "name": "egalecoder",
+  "displayName": "EgaleCoder",
+  "description": "A magnificent eagle flying across your VS Code workspace & code editor with bug hunting, soaring physics, and coder wisdom.",
+  "version": "0.1.0",
+  "publisher": "EgaleCoder",
+  "author": {
+    "name": "EgaleCoder"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/EgaleCoder/vs-code-exts.git"
+  },
+  "bugs": {
+    "url": "https://github.com/EgaleCoder/vs-code-exts/issues"
+  },
+  "homepage": "https://github.com/EgaleCoder/vs-code-exts#readme",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "categories": [
+    "Other",
+    "Themes",
+    "Education",
+    "Snippets"
+  ],
+  "keywords": [
+    "eagle",
+    "egalecoder",
+    "companion",
+    "fun",
+    "animation",
+    "bug hunter",
+    "pet",
+    "workspace"
+  ],
+  "main": "./out/extension.js",
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "egalecoder-container",
+          "title": "EgaleCoder Nest",
+          "icon": "media/icons/eagle-activity.svg"
+        }
+      ]
+    },
+    "views": {
+      "egalecoder-container": [
+        {
+          "type": "webview",
+          "id": "egalecoder.nestView",
+          "name": "EgaleCoder Nest & Telemetry",
+          "visibility": "visible"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "egalecoder.summon",
+        "title": "EgaleCoder: Summon Sky Flight (Workspace Flight Mode)",
+        "category": "EgaleCoder",
+        "icon": "$(rocket)"
+      },
+      {
+        "command": "egalecoder.toggleEditorPatrol",
+        "title": "EgaleCoder: Toggle In-Editor Code Soaring",
+        "category": "EgaleCoder",
+        "icon": "$(eye)"
+      },
+      {
+        "command": "egalecoder.huntBugs",
+        "title": "EgaleCoder: Hunt Workspace Linter Bugs",
+        "category": "EgaleCoder",
+        "icon": "$(bug)"
+      },
+      {
+        "command": "egalecoder.screech",
+        "title": "EgaleCoder: Screech & Developer Wisdom",
+        "category": "EgaleCoder",
+        "icon": "$(megaphone)"
+      },
+      {
+        "command": "egalecoder.feed",
+        "title": "EgaleCoder: Feed Snack / Boost Energy",
+        "category": "EgaleCoder",
+        "icon": "$(heart)"
+      },
+      {
+        "command": "egalecoder.toggleNest",
+        "title": "EgaleCoder: Open Nest Sidebar",
+        "category": "EgaleCoder",
+        "icon": "$(home)"
+      },
+      {
+        "command": "egalecoder.changeSkin",
+        "title": "EgaleCoder: Change Eagle Skin",
+        "category": "EgaleCoder",
+        "icon": "$(paintcan)"
+      },
+      {
+        "command": "egalecoder.changeTheme",
+        "title": "EgaleCoder: Change Sky Weather / Theme",
+        "category": "EgaleCoder",
+        "icon": "$(color-mode)"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "egalecoder.summon",
+        "key": "ctrl+alt+e",
+        "mac": "cmd+alt+e"
+      },
+      {
+        "command": "egalecoder.toggleEditorPatrol",
+        "key": "ctrl+alt+p",
+        "mac": "cmd+alt+p"
+      }
+    ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "egalecoder.summon",
+          "when": "view == egalecoder.nestView",
+          "group": "navigation@1"
+        },
+        {
+          "command": "egalecoder.huntBugs",
+          "when": "view == egalecoder.nestView",
+          "group": "navigation@2"
+        }
+      ],
+      "editor/title": [
+        {
+          "command": "egalecoder.toggleEditorPatrol",
+          "group": "navigation",
+          "title": "Toggle EgaleCoder Patrol"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "EgaleCoder",
+      "properties": {
+        "egalecoder.flightSpeed": {
+          "type": "string",
+          "enum": [
+            "relaxed",
+            "normal",
+            "turbo",
+            "hypersonic"
+          ],
+          "default": "normal",
+          "description": "Flight speed of EgaleCoder across the workspace."
+        },
+        "egalecoder.eagleSkin": {
+          "type": "string",
+          "enum": [
+            "golden",
+            "cyber",
+            "bald",
+            "phoenix",
+            "pixel"
+          ],
+          "default": "golden",
+          "description": "Skin appearance for EgaleCoder."
+        },
+        "egalecoder.skyTheme": {
+          "type": "string",
+          "enum": [
+            "cyberpunk",
+            "sunset",
+            "daylight",
+            "midnight"
+          ],
+          "default": "cyberpunk",
+          "description": "Environment theme for the Sky Flight Webview."
+        },
+        "egalecoder.soundEnabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable sound effects (screech, flap whoosh, bug catch)."
+        },
+        "egalecoder.editorPatrolSpeedMs": {
+          "type": "number",
+          "default": 350,
+          "minimum": 100,
+          "maximum": 2000,
+          "description": "Interval in milliseconds between line jumps in in-editor patrol mode."
+        },
+        "egalecoder.motivationalQuotes": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show motivational eagle coder quotes periodically or upon screech."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "build": "tsc -p ./",
+    "lint": "tsc -p ./ --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "@types/vscode": "^1.80.0",
+    "typescript": "^5.3.3"
+  }
+}
