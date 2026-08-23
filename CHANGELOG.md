@@ -1,15 +1,13 @@
 # Changelog
 
-All notable changes to the **EgaleCoder** extension will be documented in this file.
+All notable changes to the **EGALE CODERS** extension will be documented in this file.
 
-## [0.1.0] - 2026-08-24
+## [0.2.0] - 2026-08-24
 
-### 🚀 Initial Release of EgaleCoder
-- **Full Workspace Sky Flight Simulator**: 60fps HTML5 Canvas flight simulation with realistic aerodynamics, wing flap kinematics, banking angles, glide physics, and dive mechanics.
-- **In-Editor Code Patrol**: Interactive editor decoration soaring line-by-line in the active code document, perching on comments and functions with telemetry tooltips.
-- **Linter Bug Hunting**: Real-time integration with `vscode.languages.getDiagnostics()` to hunt and snatch syntax bugs with particle explosions and score counters.
-- **Procedural Web Audio Synthesizer**: Native in-browser sound engine for eagle screeches, wing whooshes, and bug-catch chimes without external audio assets.
-- **Activity Bar Nest & Telemetry View**: Dedicated sidebar view displaying real-time altitude, airspeed, stamina, caught bugs, and custom controls.
-- **Status Bar Integration**: Live telemetry status item with QuickPick flight launcher.
-- **5 Custom Eagle Skins**: Golden Eagle, Cyber Raptor, Bald Eagle, Phoenix Flame, and Pixel Eagle.
-- **4 Sky Themes**: Cyberpunk Sunset, Golden Hour, Azure Daylight, and Deep Midnight.
+### ⚡ Simplified Real-Time System Intelligence Release
+- **Official Branding**: Integrated `ECLogo.png` logo with futuristic `Orbitron` typography for **"EGALE CODERS"**.
+- **Real-Time Internet Speed**: Live measurement of Mbps throughput, ms latency ping, and network status.
+- **Real-Time CPU Usage**: Multi-core CPU load % calculation and animated progress bar.
+- **Real-Time Memory Usage**: Live RAM used vs. total GB and % utilization.
+- **Bottom-Right Corner Status Bar**: Live widget updating every 1.5s in the bottom right corner of VS Code.
+- **Interactive Dashboard**: Full visual telemetry card accessible via click or `Ctrl+Alt+E`.
