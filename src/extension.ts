@@ -158,6 +158,7 @@ function updateNestTelemetry(): void {
     altitude: isPatrol ? 3200 : 1800,
     speedMph: isPatrol ? 120 : 65,
     stamina: 100,
+    battery: 100,
     bugsCaught: bugs,
     linesPatrolled: linesCount,
     mood: isPatrol ? 'Soaring & Hunting Code' : 'Resting in Nest',

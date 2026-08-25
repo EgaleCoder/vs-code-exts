@@ -1,5 +1,4 @@
 import * as vscode from 'vscode';
-import { CONFIG_KEYS } from '../constants';
 
 export interface BatteryStats {
   currentLevel: number; // 0-100%
