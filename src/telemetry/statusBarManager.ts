@@ -1,24 +1,51 @@
 import * as vscode from 'vscode';
 import { COMMANDS, EXTENSION_NAME } from '../constants';
+import { BatteryManager, BatteryStats } from './batteryManager';
 
 export class StatusBarManager implements vscode.Disposable {
   private _statusBarItem: vscode.StatusBarItem;
+  private _batteryStatusItem: vscode.StatusBarItem;
   private _isPatrolling = false;
   private _bugsCaught = 0;
   private _speed = 95;
+  private _batteryManager: BatteryManager;
+  private _batteryLevel: number = 100;
 
   constructor() {
+    this._batteryManager = new BatteryManager();
+
+    // Main status bar item (left side)
     this._statusBarItem = vscode.window.createStatusBarItem(
       vscode.StatusBarAlignment.Right,
       100
     );
     this._statusBarItem.command = 'egalecoder.showQuickMenu';
+
+    // Battery status bar item (right side, more prominent)
+    this._batteryStatusItem = vscode.window.createStatusBarItem(
+      vscode.StatusBarAlignment.Right,
+      101
+    );
+    this._batteryStatusItem.command = 'egalecoder.feed';
+
     this.updateStatus();
     this._statusBarItem.show();
+    this._batteryStatusItem.show();
+
+    // Subscribe to battery changes
+    this._batteryManager.onBatteryChange((stats) => {
+      this._batteryLevel = stats.currentLevel;
+      this._updateBatteryStatus(stats);
+    });
   }
 
   public setPatrolActive(active: boolean): void {
     this._isPatrolling = active;
+    if (active) {
+      this._batteryManager.activateFeature('editorPatrol');
+    } else {
+      this._batteryManager.deactivateFeature('editorPatrol');
+    }
     this.updateStatus();
   }
 
@@ -30,6 +57,64 @@ export class StatusBarManager implements vscode.Disposable {
   public setSpeed(speed: number): void {
     this._speed = Math.round(speed);
     this.updateStatus();
+  }
+
+  public activateFeature(feature: 'skyFlight' | 'bugHunting' | 'audioEffects'): void {
+    this._batteryManager.activateFeature(feature);
+  }
+
+  public deactivateFeature(feature: 'skyFlight' | 'bugHunting' | 'audioEffects'): void {
+    this._batteryManager.deactivateFeature(feature);
+  }
+
+  public getBatteryManager(): BatteryManager {
+    return this._batteryManager;
+  }
+
+  public getBatteryLevel(): number {
+    return this._batteryLevel;
+  }
+
+  private _updateBatteryStatus(stats: BatteryStats): void {
+    const batteryPercent = Math.round(stats.currentLevel);
+    const icon = this._getBatteryIcon(batteryPercent);
+
+    this._batteryStatusItem.text = `${icon} ${batteryPercent}%`;
+    this._batteryStatusItem.tooltip = `🔋 EgaleCoder Battery: ${batteryPercent}%\n\nActive Features: ${Array.from(this._getActiveFeatures()).join(', ') || 'None'}\n\nClick to feed snack and restore energy!`;
+
+    // Change color based on battery level
+    if (batteryPercent <= 5) {
+      this._batteryStatusItem.backgroundColor = new vscode.ThemeColor(
+        'statusBarItem.errorBackground'
+      );
+    } else if (batteryPercent <= 20) {
+      this._batteryStatusItem.backgroundColor = new vscode.ThemeColor(
+        'statusBarItem.warningBackground'
+      );
+    } else {
+      this._batteryStatusItem.backgroundColor = undefined;
+    }
+  }
+
+  private _getBatteryIcon(percent: number): string {
+    if (percent >= 80) {
+      return '🔋'; // Full battery
+    } else if (percent >= 60) {
+      return '🔋'; // High
+    } else if (percent >= 40) {
+      return '⚡'; // Medium
+    } else if (percent >= 20) {
+      return '⚠️'; // Low
+    } else {
+      return '🔴'; // Critical
+    }
+  }
+
+  private _getActiveFeatures(): Set<string> {
+    // This would ideally come from BatteryManager, but for now we track locally
+    const features = new Set<string>();
+    if (this._isPatrolling) features.add('Patrol');
+    return features;
   }
 
   private updateStatus(): void {
@@ -67,8 +152,8 @@ export class StatusBarManager implements vscode.Disposable {
         detail: COMMANDS.SCREECH,
       },
       {
-        label: '$(heart) Feed EgaleCoder Snack',
-        description: 'Boost energy and restore stamina',
+        label: `🔋 Feed EgaleCoder Snack (Current Battery: ${Math.round(this._batteryLevel)}%)`,
+        description: 'Boost energy and restore 20% battery',
         detail: COMMANDS.FEED,
       },
       {
@@ -94,5 +179,7 @@ export class StatusBarManager implements vscode.Disposable {
 
   public dispose(): void {
     this._statusBarItem.dispose();
+    this._batteryStatusItem.dispose();
+    this._batteryManager.dispose();
   }
 }
