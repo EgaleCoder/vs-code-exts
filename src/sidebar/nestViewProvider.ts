@@ -48,6 +48,7 @@ export class NestViewProvider implements vscode.WebviewViewProvider {
     altitude: number;
     speedMph: number;
     stamina: number;
+    battery: number;
     bugsCaught: number;
     linesPatrolled: number;
     mood: string;
@@ -120,6 +121,18 @@ export class NestViewProvider implements vscode.WebviewViewProvider {
       <div class="progress-bar">
         <div class="progress-fill" id="stamina-fill" style="width: 100%;"></div>
       </div>
+    </div>
+
+    <!-- Battery Meter -->
+    <div class="battery-section">
+      <div class="battery-header">
+        <span>🔋 Battery Level</span>
+        <span id="battery-pct">100%</span>
+      </div>
+      <div class="progress-bar battery-bar">
+        <div class="progress-fill battery-fill" id="battery-fill" style="width: 100%;"></div>
+      </div>
+      <p class="battery-hint">Drains based on active features. Feed snacks to restore energy!</p>
     </div>
 
     <!-- Primary Action Controls -->
