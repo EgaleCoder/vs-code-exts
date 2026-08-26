@@ -1,0 +1,96 @@
+{
+  "name": "egale-pulse",
+  "displayName": "EGALE PULSE",
+  "description": "Real-time Internet Speed, CPU Usage, and Memory Usage monitor with custom EGALE CODERS branding and bottom-right corner dashboard.",
+  "version": "0.3.0",
+  "publisher": "EgaleCoder",
+  "author": {
+    "name": "EgaleCoder"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/EgaleCoder/vs-code-exts.git"
+  },
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "categories": [
+    "Other",
+    "Themes",
+    "Formatters"
+  ],
+  "keywords": [
+    "egale",
+    "pulse",
+    "coder",
+    "system",
+    "monitor",
+    "cpu",
+    "ram",
+    "internet",
+    "speed",
+    "telemetry"
+  ],
+  "icon": "media/icons/ECLogo.png",
+  "main": "./out/extension.js",
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "egale-pulse-telemetry",
+          "title": "EGALE PULSE",
+          "icon": "media/icons/ECLogo.png"
+        }
+      ]
+    },
+    "views": {
+      "egale-pulse-telemetry": [
+        {
+          "type": "webview",
+          "id": "egalePulse.dashboardView",
+          "name": "System Telemetry",
+          "visibility": "visible"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "egalePulse.openDashboard",
+        "title": "EGALE PULSE: Open Real-Time System Dashboard",
+        "category": "EGALE PULSE",
+        "icon": "$(pulse)"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "egalePulse.openDashboard",
+        "key": "ctrl+alt+e",
+        "mac": "cmd+alt+e"
+      }
+    ],
+    "menus": {
+      "statusBar/window": [
+        {
+          "command": "egalePulse.openDashboard"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "build": "tsc -p ./",
+    "lint": "tsc -p ./ --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "@types/vscode": "^1.80.0",
+    "typescript": "^5.3.3"
+  }
+}
+
