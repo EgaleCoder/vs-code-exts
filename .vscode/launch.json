@@ -2,6 +2,18 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "Run EGALE PULSE Extension",
+      "type": "extensionHost",
+      "request": "launch",
+      "args": [
+        "--extensionDevelopmentPath=${workspaceFolder}/egale-pulse"
+      ],
+      "outFiles": [
+        "${workspaceFolder}/egale-pulse/out/**/*.js"
+      ],
+      "preLaunchTask": "compile-egale-pulse"
+    },
+    {
       "name": "Run EgaleCoder Extension",
       "type": "extensionHost",
       "request": "launch",

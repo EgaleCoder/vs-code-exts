@@ -1,91 +1,90 @@
 # 🦅 vs-code-exts — EGALE CODERS
 
-[![VS Code Extension](https://img.shields.io/badge/VS%20Code-Extension-007ACC?logo=visualstudiocode&logoColor=white)](https://code.visualstudio.com/)
+[![VS Code Extension](https://img.shields.io/badge/VS%20Code-Extensions-007ACC?logo=visualstudiocode&logoColor=white)](https://code.visualstudio.com/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.3-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Functional Architecture](https://img.shields.io/badge/Architecture-100%25%20Functional-brightgreen.svg)]()
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Build Status](https://img.shields.io/badge/Build-Passing-brightgreen.svg)]()
 
-> A sleek, high-performance Visual Studio Code extension providing **Real-Time System Intelligence (Internet Speed, CPU Usage, and Memory Usage)** with the **EGALE CODERS** branding and bottom-right corner dashboard.
-
----
-
-## 📦 Extension Overview
-
-<div align="center">
-  <img src="./media/icons/ECLogo.png" width="120" alt="EGALE CODERS Logo" />
-  <h1>EGALE CODERS</h1>
-  <p><strong>Real-Time System Intelligence & Telemetry for Visual Studio Code</strong></p>
-</div>
+> Official multi-extension repository for **EGALE CODERS**. This monorepo hosts high-performance, functional VS Code extensions designed for developers.
 
 ---
 
-## ✨ Features
+## 📦 Extensions Portfolio
 
-1. 🌐 **Real-Time Internet Speed & Latency**:
-   - Live download/upload throughput measured in **Mbps**.
-   - Ping response latency in **ms**.
-   - Connection stability and network status badge (`ONLINE` / `LATENCY HIGH` / `OFFLINE`).
+### 1. 🦅 [EGALE PULSE (`egale-pulse`)](./egale-pulse)
+> **Real-Time System Intelligence & Telemetry for VS Code**
 
-2. ⚡ **Real-Time CPU Usage**:
-   - Real-time total CPU load percentage (`%`).
-   - Active core detection and dynamic multi-core monitor.
-   - Animated visual load bar.
-
-3. 🧠 **Real-Time Memory (RAM) Usage**:
-   - Accurate RAM utilization in **GB** (`Used / Total GB`) and percentage (`%`).
-   - Dynamic memory health status indicator (`HEALTHY` / `ELEVATED` / `CRITICAL`).
-
-4. 📍 **Bottom-Right Corner Integration**:
-   - **Status Bar Item**: Always-on live metrics directly in the bottom-right corner of VS Code:
-     `$(pulse) EGALE CODERS: 🌐 85.4 Mbps | ⚡ 14% | 🧠 38%`
-   - **Interactive Dashboard**: Click the status bar or press `Ctrl+Alt+E` to reveal the visual dashboard featuring the `ECLogo.png` logo, the stylized **EGALE CODERS** typography, and real-time live analysis cards.
+* **100% Functional Architecture**: Built purely with TypeScript functions, stateful closures, and interfaces (zero classes).
+* **🌐 Internet Speed & Latency**: Real-time throughput in Mbps, ms ping latency, and online/offline status indicators.
+* **⚡ CPU Performance**: Multi-core CPU load calculation and animated progress visualization.
+* **🧠 Memory Telemetry**: Live RAM utilization (used / total GB and percentage) with health alerts.
+* **📍 Corner Status Bar & Dashboard**: Bottom-right live status bar item and full glassmorphism telemetry dashboard (`Ctrl+Alt+E`).
 
 ---
 
-## 📁 Simple & Clean Project Structure
+## 🔮 Future Extensions Roadmap
+
+This repository is structured to scale and host upcoming extensions built by **EGALE CODERS**, such as:
+- **`egale-snippets`**: Smart developer code snippet collections & AI-assisted template generation.
+- **`egale-theme`**: Cyberpunk & futuristic glassmorphism themes for Visual Studio Code.
+- **`egale-tools`**: Productivity and workflow automation utilities for developer environments.
+
+---
+
+## 📁 Repository Structure
 
 ```
 vs-code-exts/
-├── .vscode/
-│   ├── launch.json              # F5 Extension Debugging configuration
-│   └── tasks.json               # Build & watch tasks
-├── media/
-│   ├── icons/
-│   │   └── ECLogo.png           # EGALE CODERS Official Logo
-│   ├── dashboard.css            # Futuristic glassmorphism styling & Orbitron typography
-│   └── dashboard.js             # Live metric animation & UI script
-├── src/
-│   ├── extension.ts             # Extension activation, status bar & webview manager
-│   └── systemMonitor.ts         # Real-time CPU, RAM & Internet Speed telemetry engine
-├── package.json                 # Extension manifest & scripts
-├── tsconfig.json                # TypeScript compiler configuration
-├── CHANGELOG.md                 # Version changelog
-├── LICENSE                      # MIT License
-├── README.md                    # Git repository documentation
-└── README_EXTENSION.md          # VS Code marketplace documentation
+├── .vscode/                     # Multi-extension launch & build task configurations
+│   ├── launch.json              # F5 debug launcher for workspace extensions
+│   └── tasks.json               # NPM compile & watch tasks
+├── egale-pulse/                 # 🦅 EGALE PULSE Extension Folder
+│   ├── .vscode/                 # Extension-specific tasks
+│   ├── media/                   # Assets (css, js, icons)
+│   │   ├── css/
+│   │   ├── js/
+│   │   └── icons/
+│   ├── src/                     # 100% Functional source code
+│   │   ├── telemetry/           # CPU, Memory, Network, and Uptime functions
+│   │   ├── types/               # TypeScript interfaces & state definitions
+│   │   ├── ui/                  # Status bar and Webview managers
+│   │   │   └── webview/
+│   │   └── extension.ts         # Extension activation entry point
+│   ├── package.json             # Extension manifest & commands
+│   ├── tsconfig.json            # TypeScript configuration
+│   ├── CHANGELOG.md             # Version changelog
+│   ├── LICENSE                  # MIT License
+│   └── README.md                # Detailed extension documentation
+├── LICENSE                      # Repository MIT License
+└── README.md                    # Monorepo documentation & roadmap
 ```
 
 ---
 
-## 🚀 How to Run in VS Code
+## 🛠️ Adding a New Extension
 
-### 1. Development Mode (F5)
-1. Open this repository folder in VS Code: `code .`
-2. Press **`F5`** on your keyboard (or click **Run and Debug** -> **Run EGALE CODERS Extension**).
-3. A new **`[Extension Development Host]`** window will open.
-4. Check the bottom-right corner for the live **EGALE CODERS** telemetry bar, or press **`Ctrl+Alt+E`** to open the full dashboard!
+To add a new extension to this repository:
+1. Create a dedicated folder for the new extension (e.g. `vs-code-exts/my-new-extension`).
+2. Follow the 100% functional architecture standard (pure functions, closures, domain-driven folders `src/types`, `src/ui`, etc.).
+3. Add a debug configuration to root `.vscode/launch.json` and `.vscode/tasks.json`.
+4. Document the extension in its own `README.md` and link it in the root `README.md`.
 
-### 2. Package to `.vsix`
-```bash
-# Package into .vsix
-npx @vscode/vsce package
-```
+---
+
+## 🚀 Running & Developing Extensions
+
+1. Open this repository in VS Code:
+   ```bash
+   code .
+   ```
+2. Press **`F5`** (or select **Run EGALE PULSE Extension** in the Run & Debug view).
+3. An Extension Development Host will launch with the extension active in the bottom-right status bar.
 
 ---
 
 ## 📄 License
 
-Distributed under the MIT License. See `LICENSE` for details.
+Distributed under the MIT License. See [LICENSE](./LICENSE) for details.
 
 <p align="center">
   Crafted with 🦅 by <strong>EGALE CODERS</strong>
