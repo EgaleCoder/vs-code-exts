@@ -20,6 +20,13 @@
 * **🧠 Memory Telemetry**: Live RAM utilization (used / total GB and percentage) with health alerts.
 * **📍 Corner Status Bar & Dashboard**: Bottom-right live status bar item and full glassmorphism telemetry dashboard (`Ctrl+Alt+E`).
 
+#### 📸 UI Preview:
+<p align="center">
+  <img src="./egale-pulse/media/screenshots/statusbar-preview.png" alt="EGALE PULSE Status Bar Preview" width="550" />
+  <br/>
+  <img src="./egale-pulse/media/screenshots/dashboard-preview.png" alt="EGALE PULSE Dashboard Preview" width="380" />
+</p>
+
 ---
 
 ## 🔮 Future Extensions Roadmap
