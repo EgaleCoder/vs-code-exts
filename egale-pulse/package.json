@@ -3,9 +3,9 @@
   "displayName": "EGALE PULSE",
   "description": "Real-time Internet Speed, CPU Usage, and Memory Usage monitor with custom EGALE CODERS branding and bottom-right corner dashboard.",
   "version": "0.3.0",
-  "publisher": "EgaleCoder",
+  "publisher": "EgaleCoders",
   "author": {
-    "name": "EgaleCoder"
+    "name": "EgaleCoders"
   },
   "repository": {
     "type": "git",
