@@ -1,0 +1,85 @@
+name: Release Extension
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'egale-pulse/**'
+      - '.github/workflows/release.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-release:
+    name: Build & Release VSIX
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+          cache-dependency-path: egale-pulse/package-lock.json
+
+      - name: Read Extension Metadata
+        id: pkg_info
+        run: |
+          VERSION=$(node -p "require('./egale-pulse/package.json').version")
+          NAME=$(node -p "require('./egale-pulse/package.json').name")
+          DISPLAY_NAME=$(node -p "require('./egale-pulse/package.json').displayName || require('./egale-pulse/package.json').name")
+          echo "version=${VERSION}" >> "$GITHUB_OUTPUT"
+          echo "name=${NAME}" >> "$GITHUB_OUTPUT"
+          echo "display_name=${DISPLAY_NAME}" >> "$GITHUB_OUTPUT"
+          echo "tag=v${VERSION}" >> "$GITHUB_OUTPUT"
+
+      - name: Install Dependencies
+        working-directory: egale-pulse
+        run: npm ci
+
+      - name: Compile TypeScript
+        working-directory: egale-pulse
+        run: npm run compile
+
+      - name: Package Extension (.vsix)
+        working-directory: egale-pulse
+        run: npx --yes @vscode/vsce package --no-dependencies --out ${NAME}-${VERSION}.vsix
+        env:
+          NAME: ${{ steps.pkg_info.outputs.name }}
+          VERSION: ${{ steps.pkg_info.outputs.version }}
+
+      - name: Verify VSIX Package
+        run: |
+          echo "Generated VSIX package:"
+          ls -lh egale-pulse/*.vsix
+
+      - name: Publish GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.pkg_info.outputs.tag }}
+          name: "${{ steps.pkg_info.outputs.display_name }} ${{ steps.pkg_info.outputs.tag }}"
+          files: egale-pulse/*.vsix
+          draft: false
+          prerelease: false
+          make_latest: true
+          generate_release_notes: true
+          body: |
+            ### 🦅 ${{ steps.pkg_info.outputs.display_name }} — ${{ steps.pkg_info.outputs.tag }}
+
+            #### 📦 Installation Instructions:
+            1. Download the **`${{ steps.pkg_info.outputs.name }}-${{ steps.pkg_info.outputs.version }}.vsix`** file below.
+            2. Open **Visual Studio Code**.
+            3. Open the Extensions view (`Ctrl+Shift+X` or `Cmd+Shift+X`).
+            4. Click the **`...`** (Views and More Actions) menu in the top-right corner of the Extensions view.
+            5. Select **Install from VSIX...** and choose the downloaded `.vsix` file.
+            6. Reload or restart VS Code if prompted.
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

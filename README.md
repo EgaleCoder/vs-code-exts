@@ -3,6 +3,8 @@
 [![VS Code Extension](https://img.shields.io/badge/VS%20Code-Extensions-007ACC?logo=visualstudiocode&logoColor=white)](https://code.visualstudio.com/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.3-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![Functional Architecture](https://img.shields.io/badge/Architecture-100%25%20Functional-brightgreen.svg)]()
+[![Latest Release](https://img.shields.io/github/v/release/EgaleCoder/vs-code-exts?color=blue&logo=github&label=Latest%20Release)](https://github.com/EgaleCoder/vs-code-exts/releases/latest)
+[![Release Extension](https://github.com/EgaleCoder/vs-code-exts/actions/workflows/release.yml/badge.svg)](https://github.com/EgaleCoder/vs-code-exts/actions/workflows/release.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 > Official multi-extension repository for **EGALE CODERS**. This monorepo hosts high-performance, functional VS Code extensions designed for developers.
@@ -86,6 +88,30 @@ To add a new extension to this repository:
    ```
 2. Press **`F5`** (or select **Run EGALE PULSE Extension** in the Run & Debug view).
 3. An Extension Development Host will launch with the extension active in the bottom-right status bar.
+
+---
+
+## ⚡ Automated CI/CD Releases
+
+This repository is equipped with an automated GitHub Actions pipeline ([`release.yml`](.github/workflows/release.yml)) for continuous integration and automated GitHub Releases:
+
+1. **Automatic Release on Push**: Whenever code is pushed to `main` (affecting `egale-pulse/**`), the workflow automatically:
+   - Sets up Node.js 20.
+   - Installs dependencies cleanly (`npm ci`).
+   - Compiles TypeScript source code (`npm run compile`).
+   - Packages the extension into a `.vsix` bundle using `@vscode/vsce`.
+   - Reads the extension version dynamically from [`egale-pulse/package.json`](./egale-pulse/package.json).
+   - Creates a git tag and a **GitHub Release** named `EGALE PULSE v<version>`.
+   - Sets the release as the **Latest Release** on GitHub.
+   - Attaches the downloadable `.vsix` file to the release assets with auto-generated release notes.
+2. **Manual Trigger**: The pipeline can also be run on-demand via the GitHub Actions **Run workflow** button.
+
+### 📦 Installing the `.vsix` Extension
+
+1. Download the latest `.vsix` file from [GitHub Releases](https://github.com/EgaleCoder/vs-code-exts/releases/latest).
+2. In Visual Studio Code, open the Extensions view (`Ctrl+Shift+X` / `Cmd+Shift+X`).
+3. Click the **`...`** (Views and More Actions) menu in the top-right corner of the Extensions panel.
+4. Select **Install from VSIX...** and select the downloaded file.
 
 ---
 
